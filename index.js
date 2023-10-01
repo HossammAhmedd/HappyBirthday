@@ -4,9 +4,9 @@ const width = (canvas.width = window.innerWidth);
 const height = (canvas.height = window.innerHeight);
 const fireworks = [];
 
-function Firework(x, y) {
-    this.x = x;
-    this.y = y;
+function Firework() {
+    this.x = Math.random() * width;
+    this.y = height;
     this.vx = Math.random() * 6 - 3;
     this.vy = Math.random() * -15 - 10;
     this.gravity = 0.2;
@@ -39,13 +39,17 @@ function getRandomColor() {
     return colors[Math.floor(Math.random() * colors.length)];
 }
 
-function createFirework(x, y) {
-    const firework = new Firework(x, y);
+function createFirework() {
+    const firework = new Firework();
     fireworks.push(firework);
 }
 
 function animate() {
     ctx.clearRect(0, 0, width, height);
+
+    if (Math.random() < 0.05) {
+        createFirework();
+    }
 
     fireworks.forEach(function (firework) {
         firework.update();
@@ -54,18 +58,5 @@ function animate() {
 
     requestAnimationFrame(animate);
 }
-
-canvas.addEventListener("mousedown", function (e) {
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-    createFirework(mouseX, mouseY);
-});
-
-canvas.addEventListener("touchstart", function (e) {
-    const touch = e.touches[0];
-    const touchX = touch.clientX;
-    const touchY = touch.clientY;
-    createFirework(touchX, touchY);
-});
 
 animate();
