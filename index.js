@@ -55,20 +55,17 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-canvas.addEventListener("mousemove", function (e) {
+canvas.addEventListener("mousedown", function (e) {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
     createFirework(mouseX, mouseY);
 });
 
+canvas.addEventListener("touchstart", function (e) {
+    const touch = e.touches[0];
+    const touchX = touch.clientX;
+    const touchY = touch.clientY;
+    createFirework(touchX, touchY);
+});
 
 animate();
-const birthdayText = document.getElementById("birthdayText");
-
-birthdayText.addEventListener("mouseenter", function () {
-    birthdayText.classList.add("dancing");
-});
-
-birthdayText.addEventListener("mouseleave", function () {
-    birthdayText.classList.remove("dancing");
-});
